@@ -1,4 +1,3 @@
-import colors from 'vuetify/es5/util/colors'
 
 export default {
   // Global page headers: https://go.nuxtjs.dev/config-head
@@ -63,7 +62,8 @@ export default {
         },
         endpoints: {
           login: { url: '/auth/login', method: 'post' },
-          user: { url: '/auth/user', method: 'get' }
+          user: { url: '/auth/user', method: 'get' },
+          logout: false,
         }
       }
     }
@@ -74,17 +74,6 @@ export default {
     customVariables: ['~/assets/variables.scss'],
     theme: {
       //dark: true,
-      themes: {
-        dark: {
-          primary: colors.deepPurple.darken3,
-          accent: colors.grey.darken3,
-          secondary: colors.amber.darken3,
-          info: colors.teal.lighten1,
-          warning: colors.amber.base,
-          error: colors.deepOrange.accent4,
-          success: colors.green.accent3,
-        },
-      },
     },
   },
 
