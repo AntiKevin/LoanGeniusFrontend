@@ -51,6 +51,7 @@
         <Nuxt />
       </v-container>
     </v-main>
+    <alert-box />
     <v-footer :absolute="!fixed" app dark>
       <span>Kevin Rodrigues &copy; {{ new Date().getFullYear() }}</span>
     </v-footer>
@@ -58,8 +59,12 @@
 </template>
 
 <script>
+import AlertBox from "~/components/Alerts/AlertBox";
 export default {
   name: "DefaultLayout",
+  components: {
+    AlertBox,
+  },
   data() {
     return {
       clipped: false,

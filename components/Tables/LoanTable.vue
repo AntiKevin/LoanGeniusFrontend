@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <v-container>
     <v-toolbar dense>
       <v-toolbar-title>{{ navTitle }}</v-toolbar-title>
 
@@ -35,12 +35,12 @@
         {{ formatPercentage(item.interest) }}
       </template>
       <template v-slot:item.edit="{ item }">
-        <v-btn icon small @click="onRowClick(item)">
+        <v-btn icon small @click="showAlert()">
           <v-icon>mdi-pencil</v-icon>
         </v-btn>
       </template>
     </v-data-table>
-  </div>
+  </v-container>
 </template>
 
 <script>
@@ -86,6 +86,12 @@ export default {
     },
     onRowClick(item) {
       this.$router.push(`/loan/details/${item.id}`);
+    },
+    showAlert() {
+      this.$store.dispatch("components/alert/show", {
+        message: "Temporariamente indisponível",
+        type: "info",
+      });
     },
   },
 };
