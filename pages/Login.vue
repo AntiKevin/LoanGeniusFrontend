@@ -11,17 +11,26 @@
               <v-text-field
                 v-model="login.username"
                 :rules="rules"
+                :disabled="loading"
                 label="Username"
                 required
               ></v-text-field>
               <v-text-field
                 v-model="login.password"
                 :rules="rulesPassword"
+                :disabled="loading"
                 label="Password"
                 type="password"
                 required
               ></v-text-field>
-              <v-btn type="submit" color="primary" :disabled="!valid" block>Login</v-btn>
+              <v-btn
+                type="submit"
+                color="primary"
+                :loading="loading"
+                :disabled="!valid"
+                block
+                >Login</v-btn
+              >
             </v-form>
             <nuxt-link to="/register">
               <p class="mt-5">Não possui uma conta? Registre-se</p>
@@ -41,6 +50,7 @@ export default {
       username: "",
       password: "",
     },
+    loading: false,
     valid: false,
     rules: [(value) => !!value || "Required."],
     rulesPassword: [
@@ -50,13 +60,21 @@ export default {
   }),
   methods: {
     async userLogin() {
+      this.loading = true;
       try {
         await this.$auth.loginWith("local", { data: this.login });
+        this.$router.push("/dashboard");
+        this.loading = false;
+        this.$store.dispatch("components/alert/show", {
+          message: "Login bem sucedido: Bem vindo ao LoanGenius!",
+          type: "success",
+        });
       } catch (err) {
         this.$store.dispatch("components/alert/show", {
           message: "Erro de login: Verifique seu usuário e senha",
           type: "error",
         });
+        this.loading = false;
       }
     },
   },
