@@ -7,19 +7,21 @@
             <h4>Login</h4>
           </v-card-title>
           <v-card-text>
-            <v-form @submit.prevent="userLogin">
+            <v-form @submit.prevent="userLogin" v-model="valid">
               <v-text-field
                 v-model="login.username"
+                :rules="rules"
                 label="Username"
                 required
               ></v-text-field>
               <v-text-field
                 v-model="login.password"
+                :rules="rulesPassword"
                 label="Password"
                 type="password"
                 required
               ></v-text-field>
-              <v-btn type="submit" color="primary" block>Login</v-btn>
+              <v-btn type="submit" color="primary" :disabled="!valid" block>Login</v-btn>
             </v-form>
           </v-card-text>
         </v-card>
@@ -31,20 +33,27 @@
 <script>
 export default {
   layout: "Auth",
-  data() {
-    return {
-      login: {
-        username: "",
-        password: "",
-      },
-    };
-  },
+  data: () => ({
+    login: {
+      username: "",
+      password: "",
+    },
+    valid: false,
+    rules: [(value) => !!value || "Required."],
+    rulesPassword: [
+      (value) => !!value || "Required.",
+      (value) => (value && value.length >= 8) || "min 8 caracteres",
+    ],
+  }),
   methods: {
     async userLogin() {
       try {
         await this.$auth.loginWith("local", { data: this.login });
       } catch (err) {
-        console.log(err);
+        this.$store.dispatch("components/alert/show", {
+          message: "Erro de login: Verifique seu usuário e senha",
+          type: "error",
+        });
       }
     },
   },
