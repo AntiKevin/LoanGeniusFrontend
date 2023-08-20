@@ -23,6 +23,9 @@
               ></v-text-field>
               <v-btn type="submit" color="primary" :disabled="!valid" block>Login</v-btn>
             </v-form>
+            <nuxt-link to="/register">
+              <p class="mt-5">Não possui uma conta? Registre-se</p>
+            </nuxt-link>
           </v-card-text>
         </v-card>
       </v-col>
