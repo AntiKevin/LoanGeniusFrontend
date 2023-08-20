@@ -1,10 +1,10 @@
 <template>
   <div class="alertDiv">
-    <v-expand-x-transition>
+    <v-fab-transition transition="scale-transition">
       <v-alert v-if="show" :type="type" dismissible @input="hideAlert">
         {{ message }}
       </v-alert>
-    </v-expand-x-transition>
+    </v-fab-transition>
   </div>
 </template>
 
