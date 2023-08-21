@@ -1,6 +1,7 @@
 export const state = () => ({
     allLoans: [],
     loan: {},
+    calculatedLoan:{}
   })
   
   export const mutations = {
@@ -9,6 +10,9 @@ export const state = () => ({
     },
     defineLoan(state, newData){
       state.loan =  newData
+    },
+    defineCalculatedLoan(state, newData){
+      state.calculatedLoan =  newData
     },
   }
   
@@ -27,6 +31,10 @@ export const state = () => ({
     },
     async createLoan({}, loan) {
       await this.$axios.$post(`/api/loan/`, loan)
+    },
+    async calculateLoan({commit}, loan) {
+      const calculatedLoan = await this.$axios.$post(`/api/loan/calculate`, loan)
+      commit('defineCalculatedLoan', calculatedLoan)
     },
     async deleteLoan({}, id) {
       await this.$axios.$delete(`/api/loan/${id}/`)

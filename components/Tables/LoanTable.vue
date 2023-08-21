@@ -50,7 +50,7 @@ export default {
     return {
       search: "",
       navTitle: "Empréstimos",
-      navAddLink: "/loan/details/new",
+      navAddLink: "new",
       loading: true,
       erro: false,
       headers: [
