@@ -1,6 +1,11 @@
 <template>
   <v-row justify="center" align="center">
-    <v-col cols="12" sm="8" md="6">
+    <v-col>
+      <v-card elevation="10">
+        <InstallmentsBarChart />
+      </v-card>
+    </v-col>
+    <v-col>
       <v-card elevation="10">
         <AmountBarChart />
       </v-card>
@@ -10,10 +15,11 @@
 
 <script>
 import AmountBarChart from "~/components/charts/AmountBarChart.vue";
+import InstallmentsBarChart from "~/components/charts/InstallmentsBarChart.vue";
 
 export default {
   name: "IndexPage",
   title: "Home page",
-  components: { AmountBarChart },
+  components: { AmountBarChart, InstallmentsBarChart },
 };
 </script>

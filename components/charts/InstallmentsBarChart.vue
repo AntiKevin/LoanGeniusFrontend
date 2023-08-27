@@ -31,38 +31,42 @@ export default {
     await this.$store.dispatch("api/loan/fetchLoans");
   },
   computed: {
-    sortedLoansByMonth() {
+    sortedPaymentsByMonth() {
       const loans = this.$store.state.api.loan.allLoans; // Assuming this is where your loans data is stored
-      const totalsByMonth = {};
+      const paymentsByMonth = {};
 
       loans.forEach((loan) => {
         const createdAt = new Date(loan.createdAt);
-        const monthYear = `${createdAt.getMonth() + 1}-${createdAt.getFullYear()}`;
-        if (!totalsByMonth[monthYear]) {
-          totalsByMonth[monthYear] = 0;
+        const totalPayments = loan.amount / loan.installments;
+
+        for (let i = 0; i < loan.installments; i++) {
+          const monthYear = `${createdAt.getMonth() + i + 1}-${createdAt.getFullYear()}`;
+          if (!paymentsByMonth[monthYear]) {
+            paymentsByMonth[monthYear] = 0;
+          }
+          paymentsByMonth[monthYear] += totalPayments;
         }
-        totalsByMonth[monthYear] += loan.amount;
       });
 
-      const sortedMonths = Object.keys(totalsByMonth).sort();
+      const sortedMonths = Object.keys(paymentsByMonth).sort();
       const sortedData = sortedMonths.map((monthYear) => ({
         monthYear,
-        total: totalsByMonth[monthYear],
+        total: paymentsByMonth[monthYear],
       }));
 
       return sortedData;
     },
   },
   watch: {
-    sortedLoansByMonth: {
+    sortedPaymentsByMonth: {
       handler(sortedData) {
         this.chartData = {
           labels: sortedData.map((data) => data.monthYear),
           datasets: [
             {
               data: sortedData.map((data) => data.total),
-              label: "Total em empréstimos feitos por mês (R$)",
-              backgroundColor: "#fd6d64",
+              label: "Valor a Pagar por Mês (R$)",
+              backgroundColor: "#1976d2",
             },
           ],
         };
