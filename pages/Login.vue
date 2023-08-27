@@ -9,7 +9,7 @@
           <v-card-text>
             <v-form @submit.prevent="userLogin" v-model="valid">
               <v-text-field
-                v-model="login.username"
+                v-model="login.login"
                 :rules="rules"
                 :disabled="loading"
                 label="Username"
@@ -47,7 +47,7 @@ export default {
   layout: "Auth",
   data: () => ({
     login: {
-      username: "",
+      login: "",
       password: "",
     },
     loading: false,
