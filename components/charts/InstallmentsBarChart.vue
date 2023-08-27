@@ -37,7 +37,7 @@ export default {
 
       loans.forEach((loan) => {
         const createdAt = new Date(loan.createdAt);
-        const totalPayments = loan.amount / loan.installments;
+        const totalPayments = loan.totalRepayment / loan.installments;
 
         for (let i = 0; i < loan.installments; i++) {
           const monthYear = `${createdAt.getMonth() + i + 1}-${createdAt.getFullYear()}`;
