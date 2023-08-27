@@ -39,7 +39,7 @@
         </div>
       </template>
     </v-navigation-drawer>
-    <v-app-bar :clipped-left="clipped" fixed dense app elevation="0">
+    <v-app-bar :clipped-left="clipped" fixed dense app elevation="0" color="white">
       <v-btn icon @click.stop="miniVariant = !miniVariant">
         <v-icon>mdi-{{ `chevron-${miniVariant ? "right" : "left"}` }}</v-icon>
       </v-btn>

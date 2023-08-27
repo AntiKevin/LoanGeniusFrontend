@@ -35,7 +35,7 @@
         {{ formatPercentage(item.interest) }}
       </template>
       <template v-slot:item.edit="{ item }">
-        <v-btn icon small @click="showAlert()">
+        <v-btn icon small @click="$router.push(`/dashboard/loans/edit/${item.id}`)">
           <v-icon>mdi-pencil</v-icon>
         </v-btn>
       </template>
@@ -86,12 +86,6 @@ export default {
     },
     onRowClick(item) {
       this.$router.push(`/loan/details/${item.id}`);
-    },
-    showAlert() {
-      this.$store.dispatch("components/alert/show", {
-        message: "Temporariamente indisponível",
-        type: "info",
-      });
     },
   },
 };

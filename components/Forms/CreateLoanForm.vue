@@ -1,5 +1,5 @@
 <template>
-  <v-form @submit.prevent="submitForm" v-model="valid" class="px-10 py-10">
+  <v-form @submit.prevent="saveLoan" v-model="valid" class="px-10 py-10 mt-5">
     <v-icon @click="$router.push('/dashboard/loans/details')" class="mb-5"
       >mdi-arrow-left</v-icon
     >
@@ -60,7 +60,7 @@
 
 <script>
 export default {
-  name: "Contratos",
+  name: "create-loan",
   data() {
     return {
       amount: "",
@@ -84,6 +84,9 @@ export default {
       return this.$store.state.api.loan.calculatedLoan;
     },
   },
+  async mounted() {
+    await this.$store.commit("api/loan/defineCalculatedLoan", 0);
+  },
   methods: {
     async calculateLoan() {
       const dados = {
@@ -93,10 +96,33 @@ export default {
       };
       this.loading = true;
       try {
-        this.$store.dispatch("api/loan/calculateLoan", dados);
+        await this.$store.dispatch("api/loan/calculateLoan", dados);
         this.loading = false;
         this.$store.dispatch("components/alert/show", {
           message: "Valor total do empréstimo calculado com sucesso!",
+          type: "success",
+        });
+      } catch (error) {
+        this.$store.dispatch("components/alert/show", {
+          message: "Erro ao calcular o valor",
+          type: "error",
+        });
+        this.loading = false;
+      }
+    },
+    async saveLoan() {
+      const dados = {
+        amount: this.amount,
+        interest: this.interest,
+        installments: this.installments,
+      };
+      this.loading = true;
+      try {
+        await this.$store.dispatch("api/loan/createLoan", dados);
+        this.loading = false;
+        this.$router.push("/dashboard/loans/details");
+        this.$store.dispatch("components/alert/show", {
+          message: "Valor total do empréstimo salvo com sucesso!",
           type: "success",
         });
       } catch (error) {
