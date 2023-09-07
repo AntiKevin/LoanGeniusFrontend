@@ -9,7 +9,7 @@
           <v-card-text>
             <v-form @submit.prevent="userLogin" v-model="valid">
               <v-text-field
-                v-model="register.username"
+                v-model="register.login"
                 :rules="rules"
                 label="Username"
                 :disabled="loading"
@@ -56,7 +56,7 @@ export default {
   auth: false,
   data: () => ({
     register: {
-      username: "",
+      login: "",
       password: "",
       role: "ADMIN",
     },
