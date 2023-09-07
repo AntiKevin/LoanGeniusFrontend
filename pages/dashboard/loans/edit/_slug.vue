@@ -4,12 +4,16 @@
       <v-card elevation="24">
         <EditLoanForm :id="slug" />
       </v-card>
+      <v-card elevation="24">
+        <SacTable :id="slug" />
+      </v-card>
     </v-col>
   </v-row>
 </template>
 
 <script>
 import EditLoanForm from "~/components/Forms/EditLoanForm.vue";
+import SacTable from "~/components/Tables/SacTable.vue";
 
 export default {
   async asyncData({ params }) {
@@ -18,6 +22,7 @@ export default {
   },
   components: {
     EditLoanForm,
+    SacTable,
   },
 };
 </script>
