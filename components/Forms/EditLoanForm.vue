@@ -75,11 +75,11 @@ export default {
       valid: false,
       rulesDecimalNumField: [
         (value) => {
-          const regex = /^\d+(\.\d{2})?$/;
+          const regex = /^\d+(\.\d*)?$/;
           if (regex.test(value)) {
-            return true; // O campo contém apenas dígitos
+            return true;
           }
-          return "O campo deve conter apenas dígitos e não pode estar vazio.";
+          return "O campo não pode estar vazio e deve conter apenas dígitos, e pontos em caso de numeros decimais.";
         },
       ],
     };
